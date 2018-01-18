@@ -1,5 +1,5 @@
 {
-  "name": "boilermaker",
+  "name": "stackathon",
   "version": "1.0.0",
   "description": "Some boilerplate code to get you started - get shakin'!",
   "engines": {
@@ -59,6 +59,7 @@
     "eslint": "^4.10.0",
     "eslint-config-fullstack": "^3.0.0",
     "eslint-plugin-react": "^7.4.0",
+    "firebase": "^4.8.2",
     "mocha": "^3.3.0",
     "nodemon": "^1.12.1",
     "react-test-renderer": "^16.0.0",
