@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import firebase from '../../src/firebase.js'
+import firebase from '../../src/firebase.js';
 
 export class MainPage extends Component {
   constructor(){
@@ -15,23 +15,22 @@ export class MainPage extends Component {
 
   render(){
     return (
-      <div className='app'>
+      <div>
         <header>
-            <div className='wrapper'>
+            <div>
               <h1>Fun Food Friends</h1>
-
             </div>
         </header>
-        <div className='container'>
-          <section className='add-item'>
+        <div>
+          <section>
               <form onSubmit={this.handleSubmit}>
                 <input type="text" name="username" placeholder="What's your name?" onChange={this.handleChange} value={this.state.username} />
                 <input type="text" name="currentItem" placeholder="What are you bringing?" onChange={this.handleChange} value={this.state.currentItem} />
                 <button>Add Item</button>
               </form>
           </section>
-          <section className='display-item'>
-            <div className='wrapper'>
+          <section>
+            <div>
               <ul>
               {
                 this.state.items.map(item => {
@@ -39,6 +38,7 @@ export class MainPage extends Component {
                     <li key={item.id}>
                       <p>{item.user} is bringing {item.title}</p>
                       <button onClick={() => this.removeItem(item.id)}>Remove</button>
+                      <button onClick={() => this.editItem(item.id)}>Change To PopTart</button>
                     </li>
                   )
                 })
@@ -75,6 +75,7 @@ export class MainPage extends Component {
 
   handleChange(event){
     this.setState({ [event.target.name]: event.target.value })
+    console.log('this.state: ', this.state)
   }
 
   handleSubmit(event){
@@ -100,6 +101,13 @@ export class MainPage extends Component {
     const itemRef = firebase.database().ref(`/items/${itemId}`);
     // call firebase.database()'s remove method
     itemRef.remove();
+  }
+
+  editItem(itemId){
+    const itemRef = firebase.database().ref(`/items/${itemId}`)
+    const updates = {title: 'PopTart'}
+    itemRef.update(updates)
+    console.log('this.state (POPTART):', this.state)
   }
 }
 

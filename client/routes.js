@@ -3,8 +3,10 @@ import {connect} from 'react-redux'
 import {Route, Switch, Router} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, Login, Signup, UserHome, MainPage} from './components'
+import {Main, Login, Signup, UserHome, MainPage, Container, ReactDraggable} from './components'
 import {me} from './store'
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 
 /**
  * COMPONENT
@@ -30,6 +32,8 @@ class Routes extends Component {
                   {/* Routes placed here are only available after logging in */}
                   <Route path="/home" component={UserHome} />
                   <Route exact path="/mainPage" component={MainPage} />
+                  <Route exact path="/dnd" component={Container} />
+                  <Route exact path="/draggable" component={ReactDraggable} />
                 </Switch>
             }
             {/* Displays our Login component as a fallback */}
@@ -60,7 +64,7 @@ const mapDispatch = (dispatch) => {
   }
 }
 
-export default connect(mapState, mapDispatch)(Routes)
+export default DragDropContext(HTML5Backend)(connect(mapState, mapDispatch)(Routes))
 
 /**
  * PROP TYPES
