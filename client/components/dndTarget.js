@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { DropTarget } from 'react-dnd';
 import ItemTypes from './itemTypes';
 
@@ -19,7 +20,7 @@ function collect (connect, monitor){
 class Target extends Component {
 
   render(){
-    const { canDrop, isOver, connectDropTarget } = this.props;
+    const { canDrop, isOver, connectDropTarget, isStored } = this.props;
     const isActive = canDrop && isOver;
 
     // let backgroundColor = '#222';
@@ -32,18 +33,18 @@ class Target extends Component {
     return (
       connectDropTarget(
         <div className="drop-target">
-          { isActive ? 'Release to drop' : 'Drag a box here' }
+          { isActive && isStored ? 'Release to add to FRIDGE' : isActive && !isStored? 'Release to send back to BOX' : 'Drag here' }
         </div>
       )
     )
   }
 }
 
-// Target.propTypes = {
-//   connectDropTarget: PropTypes.func.isRequired,
-//   isOver: PropTypes.bool.isRequired,
-//   canDrop: PropTypes.string.isRequired
-// };
+Target.propTypes = {
+  connectDropTarget: PropTypes.func.isRequired,
+  isOver: PropTypes.bool.isRequired,
+  canDrop: PropTypes.string.isRequired
+};
 
-export default DropTarget(ItemTypes.BOX, boxTarget, collect)(Target);
+export default DropTarget(ItemTypes.WORD, boxTarget, collect)(Target);
 

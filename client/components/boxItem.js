@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { DragSource } from 'react-dnd';
+import PropTypes from 'prop-types';
 import ItemTypes from './itemTypes';
 import firebase from '../../src/firebase.js';
 
@@ -15,12 +16,12 @@ const boxSource = {
   endDrag(props, monitor){
     const item = monitor.getItem();
     const dropResult = monitor.getDropResult();
-    if (dropResult) {
-      console.log(`You dropped ${item.name}, item:${item.id}, on to ${dropResult.name}`)
-      let wordRef = firebase.database().ref(`/words/${item.id}`)
-      let updates = {
-        isStored: false
-      }
+    let wordRef = firebase.database().ref(`/words/${item.id}`)
+    if (dropResult && item.isStored) {
+      let updates = { isStored: false }
+      wordRef.update(updates)
+    } else {
+      let updates = { isStored: true }
       wordRef.update(updates)
     }
   }
@@ -33,7 +34,7 @@ function collect (connect, monitor) {
   }
 }
 
-class DraggableItem extends Component {
+class BoxItem extends Component {
 
   render(){
     const { isDragging, connectDragSource, name } = this.props;
@@ -41,7 +42,7 @@ class DraggableItem extends Component {
 
     return (
       connectDragSource(
-        <div>
+        <div className="box-page-draggable-child">
         {name}
         </div>
       )
@@ -49,10 +50,10 @@ class DraggableItem extends Component {
   }
 }
 
-// DraggableItem.propTypes = {
-//   connectDragSource: PropTypes.func.isRequired,
-//   isDragging: PropTypes.bool.isRequired,
-//   name: PropTypes.string.isRequired
-// };
+BoxItem.propTypes = {
+  connectDragSource: PropTypes.func.isRequired,
+  isDragging: PropTypes.bool.isRequired,
+  name: PropTypes.string.isRequired
+};
 
-export default DragSource(ItemTypes.BOX, boxSource, collect)(DraggableItem)
+export default DragSource(ItemTypes.WORD, boxSource, collect)(BoxItem)

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { DragDropContextProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import Target from './dndTarget'
-import DraggableItem from './dndDraggableItem'
+import BoxItem from './boxItem'
 
 export default class Container extends Component {
   render(){
@@ -15,8 +15,8 @@ export default class Container extends Component {
             <Target />
           </div>
           <div>
-            <DraggableItem name="Banana" />
-            <DraggableItem name="Paper" />
+            <BoxItem name="Banana" />
+            <BoxItem name="Paper" />
           </div>
         </div>
       </DragDropContextProvider>

@@ -1,1 +1,3 @@
-export default { BOX: 'box' };
+export default {
+  WORD: 'word'
+};

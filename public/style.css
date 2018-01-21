@@ -2,17 +2,31 @@ body {
   /* font-family: 'Supermercado One', cursive; */
 }
 
-a {
-  text-decoration: none;
+.box-header, .fridge-header {
+  font-family: 'Abril Fatface', cursive;
+  font-size: 30px;
 }
 
-label {
-  display: block;
+a {
+  text-decoration: none;
 }
 
 nav a {
   display: inline-block;
   margin: 1em;
+  font-size: 20px;
+  text-decoration: none;
+  justify-content: center;
+  transition: 0.3x ease;
+  color: black;
+  padding: 10px;
+}
+
+nav a:hover, nav :active {
+  color: white;
+  background-color: black;
+  text-decoration: none;
+  padding: 10px;
 }
 
 form div {
@@ -31,11 +45,70 @@ form div {
   font-family: 'Ariel', sans-serif;
 }
 
+.box-page-draggable-child {
+  background-color: white;
+  border-style: solid;
+  border-color: black;
+  border-width: 1px;
+  padding: 8px;
+  box-shadow: 2px 2px;
+  font-family: 'Ariel', sans-serif;
+  width: 75px;
+}
+
 .footer {
   height: 150px;
-  position: fixed;
   bottom: 0%;
   width: 100%;
-  background-color: red;
   opacity: 1;
+}
+
+.drop-target {
+  height: 30px;
+  width: 150px;
+  background-color: gray;
+  text-align: center;
+}
+
+.dnd-item {
+  /* width: 100px; */
+  font-size: 18px;
+  background-color: white;
+  /* border-style: solid;
+  border-color: black;
+  border-width: 1px;
+  padding: 8px;
+  box-shadow: 2px 2px; */
+  font-family: 'Ariel', sans-serif;
+}
+
+.main-header {
+  margin-bottom: 0px;
+  margin-top: 0px;
+  font-size: 80px;
+  text-align: center;
+  font-family: 'Abril Fatface', cursive;
+  /* font-family: 'Fredericka the Great', cursive; */
+  /* font-family: 'Londrina Shadow', cursive; */
+  /* font-family: 'Jacques Francois Shadow', cursive; */
+  /* font-family: 'Londrina Sketch', cursive; */
+}
+
+.box-fridge-wrapper {
+  display: flex;
+  flex-direction: row;
+  width: 500px;
+  margin: 0 auto;
+}
+
+.in-the-box {
+  flex-grow: 1;
+  padding: 50px;
+}
+
+.on-the-fridge, .in-the-box {
+  flex-grow: 1;
+  padding: 50px;
+  overflow-y: auto;
+  height: 500px;
 }
