@@ -10,11 +10,8 @@ export default class TheBox extends Component{
   constructor(props){
     super(props);
     this.state = {
-      newWord: '',
       allWords: []
     }
-    this.handleInputChange = this.handleInputChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   componentDidMount(){
@@ -38,31 +35,9 @@ export default class TheBox extends Component{
     })
   }
 
-  handleInputChange(event){
-    this.setState({ newWord: event.target.value })
-  }
-
-  handleSubmit(event){
-    event.preventDefault();
-    const wordsRef = firebase.database().ref('words');
-    const word = {
-      word: this.state.newWord,
-      x: 276,
-      y: 9,
-      isStored: true
-    }
-    wordsRef.push(word)
-      .then(() => this.setState({...this.state, newWord: ''}))
-  }
-
   render(){
-
     return (
         <div>
-          <form onSubmit={this.handleSubmit} onChange={this.handleInputChange}>
-            <input type="text" name="newWord" placeholder="Enter a word!" value={this.state.newWord} />
-            <button>Create Word</button>
-          </form>
           <DragDropContextProvider backend={HTML5Backend}>
           <div className="footer">
             <div className="target">

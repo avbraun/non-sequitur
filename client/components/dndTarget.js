@@ -13,27 +13,36 @@ function collect (connect, monitor){
   return {
     connectDropTarget: connect.dropTarget(),
     isOver: monitor.isOver(),
-    canDrop: monitor.canDrop()
+    canDrop: monitor.canDrop(),
   }
 }
 
 class Target extends Component {
 
   render(){
-    const { canDrop, isOver, connectDropTarget, isStored } = this.props;
+    const { canDrop, isOver, connectDropTarget } = this.props;
     const isActive = canDrop && isOver;
+    let message;
 
-    // let backgroundColor = '#222';
-    // if (isActive) {
-    //   backgroundColor = 'darkgreen';
-    // } else if (canDrop) {
-    //   backgroundColor = 'darkhaki';
-    // }
+    let backgroundColor = 'black';
+    let color = 'white';
+    if (isActive) {
+      backgroundColor = 'fuchsia';
+    } else if (isActive && canDrop) {
+      backgroundColor = 'white';
+      color = 'fuchsia'
+    }
+
+    if (!isActive){
+      message = 'Drag here to move'
+    } else {
+      message = 'Release to drop'
+    }
 
     return (
       connectDropTarget(
-        <div className="drop-target">
-          { isActive && isStored ? 'Release to add to FRIDGE' : isActive && !isStored? 'Release to send back to BOX' : 'Drag here' }
+        <div className="drop-target" style={{ backgroundColor }}>
+          {message}
         </div>
       )
     )

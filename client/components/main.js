@@ -1,48 +1,52 @@
-import React from 'react'
+import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {withRouter, NavLink} from 'react-router-dom'
 import {logout} from '../store'
+import firebase from '../../src/firebase.js'
 
-const Main = (props) => {
-  const {children, handleClick, isLoggedIn} = props
-
-  return (
-    <div>
-      <p className="main-header">Non Sequitur.</p>
-      <nav>
-        <NavLink to="/fridge">The Fridge</NavLink>
-        <NavLink to="/box">The Box</NavLink>
-      </nav>
-      <hr />
-      {children}
-    </div>
-  )
-}
-
-const mapState = (state) => {
-  return {
-    isLoggedIn: !!state.user.id
-  }
-}
-
-const mapDispatch = (dispatch) => {
-  return {
-    handleClick () {
-      dispatch(logout())
+export default class Main extends Component{
+  constructor(props){
+    super(props)
+    this.state = {
+      newWord: ''
     }
+    this.handleInputChange = this.handleInputChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
-}
 
-// The `withRouter` wrapper makes sure that updates are not blocked
-// when the url changes
-export default withRouter(connect(mapState, mapDispatch)(Main))
+  handleInputChange(event){
+    this.setState({ newWord: event.target.value })
+  }
 
-/**
- * PROP TYPES
- */
-Main.propTypes = {
-  children: PropTypes.object,
-  handleClick: PropTypes.func.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired
+  handleSubmit(event){
+    event.preventDefault();
+    const wordsRef = firebase.database().ref('words');
+    const word = {
+      word: this.state.newWord,
+      x: 276,
+      y: 9,
+      isStored: true
+    }
+    wordsRef.push(word)
+      .then(() => this.setState({newWord: ''}))
+  }
+
+  render(){
+    const {children} = this.props
+    return (
+      <div>
+        <p className="main-header">Non Sequitur.</p>
+        <nav>
+          <NavLink to="/fridge">The Fridge</NavLink>
+          <NavLink to="/box">The Box</NavLink>
+          <form onSubmit={this.handleSubmit} onChange={this.handleInputChange}>
+            <input type="text" name="newWord" placeholder="Add new word" />
+        </form>
+        </nav>
+        <hr />
+        {children}
+      </div>
+    )
+  }
 }

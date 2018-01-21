@@ -17,10 +17,11 @@ const boxSource = {
     const item = monitor.getItem();
     const dropResult = monitor.getDropResult();
     let wordRef = firebase.database().ref(`/words/${item.id}`)
+
     if (dropResult && item.isStored) {
       let updates = { isStored: false }
       wordRef.update(updates)
-    } else {
+    } else if (dropResult && !item.isStored){
       let updates = { isStored: true }
       wordRef.update(updates)
     }
@@ -38,11 +39,11 @@ class BoxItem extends Component {
 
   render(){
     const { isDragging, connectDragSource, name } = this.props;
-    // const opacity = isDragging ? 0.4 : 1;
+    const opacity = isDragging ? 0.4 : 1;
 
     return (
       connectDragSource(
-        <div className="box-page-draggable-child">
+        <div className="box-page-draggable-child" style={{opacity}}>
         {name}
         </div>
       )

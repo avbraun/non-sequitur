@@ -7,8 +7,11 @@ body {
   font-size: 30px;
 }
 
-a {
+nav a:hover, nav a.active {
+  color: white;
+  background-color: black;
   text-decoration: none;
+  padding: 10px;
 }
 
 nav a {
@@ -17,17 +20,27 @@ nav a {
   font-size: 20px;
   text-decoration: none;
   justify-content: center;
-  transition: 0.3x ease;
   color: black;
   padding: 10px;
 }
 
-nav a:hover, nav :active {
+nav form {
+  display: inline-block;
+  margin: 1em;
+  font-size: 20px;
+  text-decoration: none;
+  justify-content: center;
+  color: black;
+  padding: 10px;
+}
+
+NavLink:active {
   color: white;
   background-color: black;
   text-decoration: none;
   padding: 10px;
 }
+
 
 form div {
   margin: 1em;
@@ -65,9 +78,14 @@ form div {
 
 .drop-target {
   height: 30px;
-  width: 150px;
-  background-color: gray;
+  width: 100%;
+  background-color: black;
+  color: white;
   text-align: center;
+  /* display: flex; */
+  justify-content: center;
+  padding-top: 10px;
+  font-family: 'Ariel', sans-serif;
 }
 
 .dnd-item {
@@ -102,13 +120,29 @@ form div {
 }
 
 .in-the-box {
-  flex-grow: 1;
+  padding: 50px 100px 50px 50px;
+}
+
+.on-the-fridge {
   padding: 50px;
 }
 
 .on-the-fridge, .in-the-box {
   flex-grow: 1;
-  padding: 50px;
   overflow-y: auto;
   height: 500px;
+}
+
+nav {
+  display: flex;
+  flex-direction: row;
+  width: 500px;
+  margin: 0 auto;
+  justify-content: center;
+}
+
+.add-word {
+  background-color: yellow;
+  display: flex;
+  justify-content: center;
 }
