@@ -97,6 +97,7 @@ export default class TheFridge extends Component{
 
     return (
       <div>
+      <div className="the-fridge">
           {
             this.state.allWords.filter(unfilteredWord => {
               return (
@@ -115,6 +116,7 @@ export default class TheFridge extends Component{
               </Draggable>)
             )
           }
+      </div>
       </div>
     )
   }

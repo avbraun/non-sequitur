@@ -1,8 +1,5 @@
 import React, {Component} from 'react'
-import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
-import {withRouter, NavLink} from 'react-router-dom'
-import {logout} from '../store'
+import {NavLink} from 'react-router-dom'
 import firebase from '../../src/firebase.js'
 
 export default class Main extends Component{
@@ -26,10 +23,10 @@ export default class Main extends Component{
       word: this.state.newWord,
       x: 276,
       y: 9,
-      isStored: true
+      isStored: false
     }
     wordsRef.push(word)
-      .then(() => this.setState({newWord: ''}))
+    this.setState({newWord: ''})
   }
 
   render(){
@@ -41,7 +38,8 @@ export default class Main extends Component{
           <NavLink to="/fridge">The Fridge</NavLink>
           <NavLink to="/box">The Box</NavLink>
           <form onSubmit={this.handleSubmit} onChange={this.handleInputChange}>
-            <input type="text" name="newWord" placeholder="Add new word" />
+            <input type="text" name="newWord" placeholder="Add word to fridge" value={this.state.newWord} />
+            <input type="submit" value="Submit" />
         </form>
         </nav>
         <hr />
